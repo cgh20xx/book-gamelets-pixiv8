@@ -6,9 +6,8 @@ export class EarthShield extends Graphics {
 
     constructor(public game: SpaceInvadersGame, x: number, y: number) {
         super();
-        this.beginFill(0x00FF00);
-        this.drawRect(-10, -10, 20, 20);
-        this.endFill();
+        this.rect(-10, -10, 20, 20);
+        this.fill(0x00FF00);
         this.position.set(x, y);
     }
     onHit() {

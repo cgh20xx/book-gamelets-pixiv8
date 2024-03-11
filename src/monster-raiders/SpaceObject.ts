@@ -1,4 +1,4 @@
-import { Container, Graphics, Point } from "pixi.js"
+import { Container, Graphics, Point, Ticker } from "pixi.js"
 import { ArrayUtils } from "../lib/ArrayUtils";
 import { MonsterRaidersGame } from "./MonsterRaidersGame";
 /** 宣告SpaceObject為一個抽象類別 */
@@ -27,7 +27,8 @@ export abstract class SpaceObject extends Container {
         this.game.app.ticker.remove(this.update, this);
         ArrayUtils.removeItem(this.game.objects, this);
     }
-    update(dt: number) {
+    update(ticker: Ticker) {
+        const dt = ticker.deltaTime;
         // 依速度移動
         this.x += this.velocity.x * dt;
         this.y += this.velocity.y * dt;
@@ -41,7 +42,7 @@ export abstract class SpaceObject extends Container {
     }
     isInScreen(): boolean {
         const screen = this.game.app.screen;
-        return this.getBounds().intersects(screen);
+        return this.getBounds().rectangle.intersects(screen);
     }
     /** 檢查碰撞 */
     hitTest(other: SpaceObject) {
@@ -51,9 +52,8 @@ export abstract class SpaceObject extends Container {
     /** 畫出碰撞半徑 */
     drawHitCircle(color = 0xFF0000) {
         let graphics = new Graphics();
-        graphics.beginFill(color, 0.2);
-        graphics.drawCircle(0, 0, this.hitRadius);
-        graphics.endFill();
+        graphics.circle(0, 0, this.hitRadius);
+        graphics.fill({ color: color, alpha: 0.2 });
         this.addChild(graphics);
     }
 }

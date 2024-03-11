@@ -1,6 +1,5 @@
 import { SpaceObject } from "./SpaceObject";
-import { Sprite } from "pixi.js";
-import monsterImg from "../images/space-monster.png";
+import { Sprite, Ticker } from "pixi.js";
 import { MathUtils } from "../lib/MathUtils";
 
 export class Monster extends SpaceObject {
@@ -13,7 +12,7 @@ export class Monster extends SpaceObject {
 
     protected init(): void {
         // 放上怪獸的圖
-        let sprite = Sprite.from(monsterImg);
+        let sprite = Sprite.from('monsterImg');
         sprite.pivot.set(56, 66);
         this.addChild(sprite);
         // 縮小一點
@@ -31,7 +30,8 @@ export class Monster extends SpaceObject {
         //this.drawHitCircle();
     }
 
-    update(dt: number) {
+    update(ticker: Ticker) {
+        const dt = ticker.deltaTime;
         // 先找到玩家戰機
         let fighter = this.game.objects.find(obj => {
             return obj.type == 'fighter';
@@ -40,7 +40,7 @@ export class Monster extends SpaceObject {
             // 縮短追蹤玩家的時間
             this.followDuration -= dt;
             // 計算兩物件之間的向量
-            let vector = fighter.position.sub(this.position);
+            let vector = fighter.position.subtract(this.position);
             // 計算戰機對於我的方向(弧度)
             let radians = Math.atan2(vector.y, vector.x);
             // 計算和我目前的方向差
@@ -59,6 +59,6 @@ export class Monster extends SpaceObject {
             this.velocity.set(2.1, 0);
             this.velocity.rotate(this.rotation);
         }
-        super.update(dt);
+        super.update(ticker);
     }
 }

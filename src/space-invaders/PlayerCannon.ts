@@ -1,13 +1,11 @@
-import { BaseTexture, Rectangle, Sprite, Texture } from "pixi.js";
+import { Assets, Rectangle, Sprite, Texture, Ticker } from "pixi.js";
 import { SpaceInvadersGame } from "./SpaceInvadersGame";
-import cannonImage from '../images/cannon.png';
 import { getStageSize, wait } from "../main";
 import { keyboardManager } from "../lib/keyboard/KeyboardManager";
 import { KeyCode } from "../lib/keyboard/KeyCode";
 import { Cannonball } from "./Cannonball";
 import cannonShootSnd from '../sounds/cannonShoot.wav';
 import { playSound } from "../lib/SoundUtils";
-import invadersImage from '../images/invaders.png';
 import cannonExplodeSnd from '../sounds/cannonExplode.wav';
 
 export class PlayerCannon {
@@ -22,9 +20,9 @@ export class PlayerCannon {
 
     constructor(public game: SpaceInvadersGame) {
         // 載入圖片
-        let baseTexture = BaseTexture.from(cannonImage);
+        // let baseTexture = Assets.get('cannonImg');
         // 建立材質
-        let texture = Texture.from(baseTexture);
+        let texture = Assets.get('cannonImg');
         // 新增精靈圖
         this.sprite.texture = texture;
         // 把精靈圖放到舞台上
@@ -36,13 +34,14 @@ export class PlayerCannon {
             stageSize.height
         );
         // 依流程調整圖片軸心
-        if (baseTexture.valid) {
-            this.adjustPivot();
-        } else {
-            baseTexture.once('loaded', () => {
-                this.adjustPivot();
-            });
-        }
+        // if (baseTexture.valid) {
+        //     this.adjustPivot();
+        // } else {
+        //     baseTexture.once('loaded', () => {
+        //         this.adjustPivot();
+        //     });
+        // }
+        this.adjustPivot();
         // 開始進行砲台移動
         game.app.ticker.add(this.moveUpdate, this);
         // 開始進行砲台射擊
@@ -71,10 +70,10 @@ export class PlayerCannon {
      * 砲台移動的更新函式
      * @param dt 經過時間
      */
-    private moveUpdate(dt: number) {
+    private moveUpdate(ticker: Ticker) {
         const sprite = this.sprite;
         let x = sprite.x;
-        let distance = dt * this.moveSpeed;
+        let distance = ticker.deltaTime * this.moveSpeed;
 
         if (keyboardManager.isKeyDown(KeyCode.LEFT)) {
             x -= distance;
@@ -102,15 +101,15 @@ export class PlayerCannon {
     private hittestInvaders() {
         let bounds = this.sprite.getBounds();
         return this.game.invaders.find((invader) => {
-            return invader.sprite.getBounds().intersects(bounds);
+            return invader.sprite.getBounds().rectangle.intersects(bounds.rectangle);
         });
     }
     /**
      * 砲台射擊的更新函式
      * @param dt 經過時間
      */
-    private shootUpdate(dt: number) {
-        this.shootCooldown -= dt;
+    private shootUpdate(ticker: Ticker) {
+        this.shootCooldown -= ticker.deltaTime;
         if (
             this.shootCooldown <= 0 &&
             keyboardManager.isKeyDown(KeyCode.SPACE)
@@ -133,9 +132,12 @@ export class PlayerCannon {
         // 播放爆炸音效
         playSound(cannonExplodeSnd, { volume: 0.2 });
         // 改變材質為外星人的材質基底最右側的frame
-        const baseTexture = BaseTexture.from(invadersImage);
+        const baseTexture = Assets.get('invadersImg');
         const frame = new Rectangle(200, 0, 50, 34);
-        const texture = new Texture(baseTexture, frame);
+        const texture = new Texture({
+            source: baseTexture,
+            frame: frame,
+        });
         // 改用外星人被擊落時的特效
         this.sprite.texture = texture;
         this.sprite.pivot.set(frame.width / 2, frame.height);

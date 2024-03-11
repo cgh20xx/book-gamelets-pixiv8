@@ -38,20 +38,22 @@ export class PixiButton extends Container {
         const labelColor = options.labelColor;
         // 幫按鈕加上圓角方形的背景
         let bg = new Graphics();
-        bg.beginFill(0xFFFFFF);
-        bg.drawRoundedRect(
+        bg.roundRect(
             0, 0,
             options.width, options.height, 
             options.cornerRadius
         );
-        bg.endFill();
+        bg.fill(0xFFFFFF);
         // 預設的按鈕背景底色
         bg.tint = backgroundColor.default;
         this.addChild(bg);
         // 加再上遊戲名字作為按鈕標籤
-        let label = new Text(options.label, {
-            fontSize: options.labelSize,
-            fill: labelColor.default,
+        let label = new Text({
+            text: options.label,
+            style: {
+                fontSize: options.labelSize,
+                fill: labelColor.default,
+            }
         });
         label.resolution = 2;
         // 置中按鈕標籤

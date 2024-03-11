@@ -8,7 +8,7 @@ export async function gifFrom(
     // 如果source是ArrayBuffer
     if (source instanceof ArrayBuffer) {
         // 直接產生AnimatedGIF
-        let gif = AnimatedGIF.fromBuffer(source);
+        let gif = AnimatedGIF.fromBuffer(source, options);
         return Promise.resolve(gif);
     } else {
         // 使用Pixi的Assets資源管理系統載入GIF

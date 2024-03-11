@@ -1,6 +1,5 @@
-import { AnimatedSprite, BaseTexture, Container, Rectangle, Texture } from "pixi.js";
+import { AnimatedSprite, Assets, Container, Rectangle, Texture } from "pixi.js";
 import { SpaceObject } from "./SpaceObject";
-import explosionImg from "../images/explosion-spritesheet.png";
 import fighterExplodeSnd from "../sounds/fighter-explode.mp3";
 import monsterExplodeSnd from "../sounds/monster-explode.mp3";
 import missileExplodeSnd from "../sounds/missile-explode.mp3";
@@ -60,7 +59,7 @@ function getTextures(): Texture[] {
     // 若快取是空的，就要建立材質陣列的快取
     if (texturesCache.length == 0) {
         // 載入基底材質
-        let baseTexture = BaseTexture.from(explosionImg);
+        let baseTexture = Assets.get('explosionImg')
         // 組建48張不同部位的材質
         for (let i = 0; i < 48; i++) {
             let col = i % 8;
@@ -71,7 +70,10 @@ function getTextures(): Texture[] {
                 frameSize.width,
                 frameSize.height
             );
-            let texture = new Texture(baseTexture, frame);
+            let texture = new Texture({
+                source: baseTexture,
+                frame: frame,
+            });
             texturesCache.push(texture);
         }
     }

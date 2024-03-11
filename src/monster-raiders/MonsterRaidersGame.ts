@@ -175,9 +175,8 @@ export class MonsterRaidersGame extends Container {
     testCamera() {
         // 製作攝影機的焦點，一個紅色的小圓
         let focus = new Graphics();
-        focus.beginFill(0xFF0000);
-        focus.drawCircle(0, 0, 10);
-        focus.endFill();
+        focus.circle(0, 0, 10);
+        focus.fill(0xFF0000);
         this.addChild(focus);
         // 將焦點物件放在畫面中央
         focus.x = getStageSize().width / 2;

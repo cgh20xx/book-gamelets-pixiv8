@@ -5,6 +5,9 @@ import { getStageSize } from "./main";
 import { MonsterRaidersGame } from "./monster-raiders/MonsterRaidersGame";
 import { SpaceInvadersGame } from "./space-invaders/SpaceInvadersGame";
 import { TreeGenerator } from "./tree-generator/TreeGenerator";
+import { monsterRaiderPreload } from "./monster-raiders/monsterRaiderPreload";
+import { spaceInvadersPreload } from "./space-invaders/spaceInvadersPreload";
+import { castleFallsPreload } from "./castle-falls/castleFallsPreload";
 
 export class GameLauncher extends Container {
 
@@ -16,13 +19,16 @@ export class GameLauncher extends Container {
         this.createButton('小樹枝上開朵花', 80, () => {
             new TreeGenerator(app);
         });
-        this.createButton('經典小蜜蜂', 160, () => {
+        this.createButton('經典小蜜蜂', 160, async () => {
+            await spaceInvadersPreload();
             new SpaceInvadersGame(app);
         });
-        this.createButton('怪獸掃蕩隊', 240, () => {
+        this.createButton('怪獸掃蕩隊', 240, async () => {
+            await monsterRaiderPreload();
             new MonsterRaidersGame(app);
         });
-        this.createButton('魔王城的隕落', 320, () => {
+        this.createButton('魔王城的隕落', 320, async () => {
+            await castleFallsPreload();
             new CastleFalls(app);
         });
     }

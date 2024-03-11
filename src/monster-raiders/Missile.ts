@@ -1,6 +1,5 @@
 import { SpaceObject } from "./SpaceObject";
-import { Sprite } from "pixi.js";
-import missileImg from "../images/missile.png";
+import { Sprite, Ticker } from "pixi.js";
 import { Explosion } from "./Explosion";
 
 export class Missile extends SpaceObject {
@@ -11,7 +10,7 @@ export class Missile extends SpaceObject {
 
     protected init(): void {
         // 飛彈的圖
-        let sprite = Sprite.from(missileImg);
+        let sprite = Sprite.from('missileImg');
         sprite.pivot.set(15, 4);
         this.addChild(sprite);
         // 縮小一點
@@ -36,7 +35,7 @@ export class Missile extends SpaceObject {
             return isCollidable && obj.hitTest(this);
         })
     }
-    update(dt: number) {
+    update(ticker: Ticker) {
         let hitObject = this.hitTestSpaceObject();
         if (hitObject) {
             // 撞到東西了，準備自爆
@@ -50,6 +49,6 @@ export class Missile extends SpaceObject {
             this.destroy();
             return;
         }
-        super.update(dt);
+        super.update(ticker);
     }
 }

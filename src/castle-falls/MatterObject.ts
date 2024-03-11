@@ -1,12 +1,7 @@
 import { Bodies, Body, Composite, Events, Pair, Vector } from "matter-js";
-import { Container, Sprite, TilingSprite } from "pixi.js";
+import { Assets, Container, Sprite, TilingSprite } from "pixi.js";
 import { CastleFallsGame } from "./CastleFallsGame";
 import { BodyOptionsMap, ICFObject } from "./CastleFallsLevelData";
-import groundImg from "../images/castle-ground.png";
-import brickImg from "../images/castle-brick.png";
-import woodImg from "../images/castle-wood.png";
-import bossImg from "../images/castle-boss.png";
-import rockImg from "../images/castle-rock.png";
 import poofGif from "../images/poof.gif";
 import { gifFrom } from "../lib/PixiGifUtils";
 
@@ -16,7 +11,7 @@ export class MatterObject extends Container {
 
     body: Body;     // Matter.js剛體
 
-    sprite: Sprite; // PIXI精靈圖
+    sprite: Container; // PIXI精靈圖
 
     constructor(public game: CastleFallsGame, public data: ICFObject) {
         super();
@@ -76,11 +71,11 @@ export class MatterObject extends Container {
             throw new Error('Unknown body shape.');
         }
     }
-    private createSprite(data: ICFObject): Sprite {
+    private createSprite(data: ICFObject): Container {
         if (data.type == 'ground') {
             const rect = data.rect!;
             let sprite = TilingSprite.from(
-                groundImg,
+                Assets.get('groundImg'),
                 { width: rect.width, height: rect.height }
             );
             sprite.pivot.set(sprite.width / 2, sprite.height / 2);
@@ -91,7 +86,7 @@ export class MatterObject extends Container {
         }
         if (data.type == 'brick') {
             const rect = data.rect!;
-            let sprite = Sprite.from(brickImg);
+            let sprite = Sprite.from('brickImg');
             sprite.pivot.set(42, 21);
             sprite.width = rect.width;
             sprite.height = rect.height;
@@ -100,7 +95,7 @@ export class MatterObject extends Container {
         }
         if (data.type == 'wood') {
             const rect = data.rect!;
-            let sprite = Sprite.from(woodImg);
+            let sprite = Sprite.from('woodImg');
             sprite.pivot.set(42, 21);
             sprite.width = rect.width;
             sprite.height = rect.height;
@@ -109,7 +104,7 @@ export class MatterObject extends Container {
         }
         if (data.type == 'boss') {
             const circle = data.circle!;
-            let sprite = Sprite.from(bossImg);
+            let sprite = Sprite.from('bossImg');
             sprite.pivot.set(36, 48);
             sprite.scale.set(circle.radius / 32);
             this.zIndex = 3;
@@ -117,7 +112,7 @@ export class MatterObject extends Container {
         }
         if (data.type == 'rock') {
             const circle = data.circle!;
-            let sprite = Sprite.from(rockImg);
+            let sprite = Sprite.from('rockImg');
             sprite.pivot.set(38, 36);
             sprite.scale.set(circle.radius / 36);
             this.zIndex = 6;

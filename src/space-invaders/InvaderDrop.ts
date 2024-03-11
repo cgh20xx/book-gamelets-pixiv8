@@ -1,4 +1,4 @@
-import { Rectangle } from "pixi.js";
+import { Rectangle, Ticker } from "pixi.js";
 import { getStageSize } from "../main";
 import { Cannonball } from "./Cannonball";
 
@@ -10,10 +10,10 @@ export class InvaderDrop extends Cannonball {
     /**
      * 外星人飛彈的移動函式
      */
-    moveUpdate(dt: number) {
+    moveUpdate(ticker: Ticker) {
         const sprite = this.sprite;
         let speed = 2;
-        sprite.y += dt * speed;
+        sprite.y += ticker.deltaTime * speed;
 
         // 往下超出舞台範圍時，刪掉自己
         if (sprite.y > getStageSize().height + sprite.height) {
@@ -24,7 +24,7 @@ export class InvaderDrop extends Cannonball {
             if (!cannon.dead) {
                 const cannonBounds = cannon.sprite.getBounds();
                 // 測試有沒有撞到玩家砲台
-                if (cannonBounds.intersects(sprite.getBounds())) {
+                if (cannonBounds.rectangle.intersects(sprite.getBounds().rectangle)) {
                     // 呼叫game裏處理砲台毀壞的函式
                     this.game.hitPlayerCannon();
                     // 再把自己也銷毀

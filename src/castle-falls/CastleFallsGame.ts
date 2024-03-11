@@ -1,7 +1,6 @@
 import { Engine, Events, IEventCollision, Runner } from "matter-js";
 import { Container, Sprite, Text } from "pixi.js";
 import { CastleFalls } from "./CastleFalls";
-import bgImg from "../images/castle-gamebg.png";
 import { ICastleFallsLevelData, ICFObject } from "./CastleFallsLevelData";
 import { Slingshot } from "./Slingshot";
 import { MatterRender } from "../lib/matter/MatterRender";
@@ -46,7 +45,7 @@ export class CastleFallsGame extends Container {
         return this.gameApp.app;
     }
     addBackground() {
-        var bg = Sprite.from(bgImg);
+        var bg = Sprite.from('gameBgImg');
         bg.zIndex = 0;
         this.addChild(bg);
     }
@@ -124,11 +123,16 @@ export class CastleFallsGame extends Container {
         // 取得遊戲舞台尺寸
         const stageSize = getStageSize();
         // 建立過關文字
-        let text = new Text("The Castle has Fallen", {
-            fontSize: 32,
-            fill: 0xFFFFFF,
-            stroke: 0x000000,
-            strokeThickness: 5,
+        let text = new Text({
+            text: "The Castle has Fallen",
+            style: {
+                fontSize: 32,
+                fill: 0xFFFFFF,
+                stroke: {
+                    color: 0x000000,
+                    width: 5,
+                },
+            }
         });
         // 調整軸心至文字中央的底部
         text.pivot.set(text.width / 2, text.height / 2);

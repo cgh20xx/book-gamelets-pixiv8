@@ -1,4 +1,4 @@
-import { Point } from "pixi.js";
+import { Point, Ticker } from "pixi.js";
 import { getStageSize, wait } from "../main";
 import { Invader } from "./Invader";
 import { SpaceInvadersGame } from "./SpaceInvadersGame";
@@ -66,13 +66,14 @@ export class InvaderBoss extends Invader {
             this.rotateSpeed *= -1;
         }
     }
-    private attackUpdate(dt: number) {
+    private attackUpdate(ticker: Ticker) {
+        const dt = ticker.deltaTime;
         // 取得目前速率
         let currSpeed = this.velocity.length();
         // 以0.02的加速度加快速率，最大值為4
         let speed = Math.min(4, currSpeed + 0.02 * dt);
         // 將速度的長度調整為新的速率
-        this.velocity.normalize(speed);
+         this.velocity.scale(speed / currSpeed);
         // 如果還有旋轉時間
         if (this.rotateTime > 0) {
             // 縮短旋轉時間
@@ -96,7 +97,8 @@ export class InvaderBoss extends Invader {
         // 魔王先跳回畫面上方
         this.y = -this.height;
     }
-    private backUpdate(dt: number) {
+    private backUpdate(ticker: Ticker) {
+        const dt = ticker.deltaTime;
         const target = this.posInFlock;
         // 將 y 以 1 的速率靠近 目標.y
         this.y = Math.min(target.y, this.y + 1 * dt);

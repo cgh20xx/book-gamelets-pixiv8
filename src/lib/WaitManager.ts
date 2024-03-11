@@ -31,8 +31,8 @@ export class WaitManager {
         this.ticker.remove(this.update, this);
     }
 
-    private update(dt: number) {
-        this.now += dt;
+    private update(ticker: Ticker) {
+        this.now += ticker.deltaTime;
         // 持續loop，直到沒有等待了
         while (this.waits.length) {
             // 取出最前面的等待

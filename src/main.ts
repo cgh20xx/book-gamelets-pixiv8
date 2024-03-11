@@ -11,8 +11,11 @@ import { EventEmitter } from "eventemitter3";
 import { GameLauncher } from './GameLauncher';
 import { Tween } from '@tweenjs/tween.js';
 
-let app = new Application<HTMLCanvasElement>();
-document.body.appendChild(app.view);
+let app = new Application();
+async function initApp() {
+    await app.init();
+    document.body.appendChild(app.canvas);
+}
 // 使用通用物件來儲存舞台的尺寸
 let stageSize = {
     width: 0,
@@ -30,11 +33,11 @@ app.stage.addChild(stageFrame);
  */
 function redrawStageFrame(): void {
     stageFrame.clear(); // 清除繪圖器
-    stageFrame.lineStyle({
+    stageFrame.setStrokeStyle({
         color: 0xFF0000,
         width: 2,
     });
-    stageFrame.drawRect(
+    stageFrame.rect(
         0,               // x
         0,               // y
         stageSize.width, // 寬
@@ -87,8 +90,6 @@ function refreshCanvasAndStage(): void {
     // 發報舞台改變事件
     StageSizeEvents.emit('resize', stageSize);
 }
-// 設定舞台尺寸
-setStageSize(640, 480);
 // 監聽視窗的 resize 事件
 // 在發生改變時執行 refreshCanvasAndStage()
 window.addEventListener('resize', refreshCanvasAndStage);
@@ -108,7 +109,7 @@ export function getStageSize() {
     }
 }
 
-let waitManager = new WaitManager(app.ticker);
+let waitManager: WaitManager
 /**
  * 等待函式
  */
@@ -123,8 +124,6 @@ export function waitForTween(tween: Tween<any>) {
         tween.onComplete(resolve);
     });
 }
-/** 啟動滑鼠跟蹤器 */
-startMouseTracer(app);
 /**
  * 檢查遊戲是否在觸控螢幕的裝置上運行
  */
@@ -138,5 +137,15 @@ export function isOnTouchScreen(): boolean {
 // new TreeGenerator(app);
 // new SpaceInvadersGame(app);
 // new MonsterRaidersGame(app);
-new GameLauncher(app);
 
+
+async function startup() {
+    await initApp();
+    // 設定舞台尺寸
+    setStageSize(640, 480);
+    /** 啟動滑鼠跟蹤器 */
+    startMouseTracer(app);
+    waitManager = new WaitManager(app.ticker);
+    new GameLauncher(app);
+}
+startup();

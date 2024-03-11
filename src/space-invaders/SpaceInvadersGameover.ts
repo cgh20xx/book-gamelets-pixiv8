@@ -23,21 +23,23 @@ export class SpaceInvadersGameover extends Container {
     }
     private createBackground() {
         let graphics = new Graphics();
-        graphics.beginFill(0, 0.8);
-        graphics.drawRect(
+        graphics.rect(
             0,
             30,
             getStageSize().width,
             getStageSize().height - 30
         );
-        graphics.endFill();
+        graphics.fill({ color: 0, alpha: 0.8 });
         this.addChild(graphics);
     }
     private createGameoverText() {
-        let text = new Text('GAME OVER', {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 48,
-            fill: '#FF0000',
+        let text = new Text({
+            text: 'GAME OVER',
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 48,
+                fill: '#FF0000',
+            }
         });
         text.position.set(
             (getStageSize().width - text.width) / 2,
@@ -46,10 +48,13 @@ export class SpaceInvadersGameover extends Container {
         this.addChild(text);
     }
     private async createRestartText() {
-        let text = new Text('press SPACE to try again', {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 24,
-            fill: '#FFFFFF',
+        let text = new Text({
+            text: 'press SPACE to try again',
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 24,
+                fill: '#FFFFFF',
+            }
         });
         text.position.set(
             (getStageSize().width - text.width) / 2,

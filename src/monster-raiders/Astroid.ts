@@ -1,6 +1,5 @@
 import { SpaceObject } from "./SpaceObject";
-import { Sprite } from "pixi.js";
-import astroidImg from '../images/astroid.png';
+import { Sprite, Ticker } from "pixi.js";
 
 export class Astroid extends SpaceObject {
 
@@ -10,7 +9,7 @@ export class Astroid extends SpaceObject {
 
     protected init(): void {
         // 放一張小行星的圖，並移動軸心到中心
-        let sprite = Sprite.from(astroidImg);
+        let sprite = Sprite.from('astroidImg');
         sprite.pivot.set(130, 120);
         this.addChild(sprite);
         // 隨機旋轉與縮放，讓每顆小行星看起來不一樣
@@ -28,8 +27,8 @@ export class Astroid extends SpaceObject {
     // 小行星自轉速度
     private rotateSpeed = (Math.random() - 0.5) * 0.004;
     // 覆寫SpaceObject的update()
-    update(dt: number) {
-        this.rotation += this.rotateSpeed * dt;
-        super.update(dt);
+    update(ticker: Ticker) {
+        this.rotation += this.rotateSpeed * ticker.deltaTime;
+        super.update(ticker);
     }
 }

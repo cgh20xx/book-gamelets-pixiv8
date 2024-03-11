@@ -7,6 +7,7 @@ import { Explosion } from "./Explosion";
 import { Missile } from "./Missile";
 import missileSnd from "../sounds/missile-launch.mp3";
 import { playSound } from "../lib/SoundUtils";
+import { Ticker } from "pixi.js";
 
 export class Fighter extends SpaceObject {
 
@@ -46,7 +47,7 @@ export class Fighter extends SpaceObject {
         gif.scale.set(0.5);
     }
 
-    update(dt: number) {
+    update(ticker: Ticker) {
         let hitObject = this.hitTestSpaceObject();
         if (hitObject) {
             // 撞到東西了，準備自爆
@@ -64,7 +65,7 @@ export class Fighter extends SpaceObject {
             this.velocity.set(2, 0);
             this.velocity.rotate(rotation);
         }
-        super.update(dt);
+        super.update(ticker);
     }
     /** 檢測與所有能撞毀戰機太空物件的碰撞 */
     hitTestSpaceObject() {

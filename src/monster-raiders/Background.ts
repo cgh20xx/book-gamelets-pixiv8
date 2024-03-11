@@ -1,8 +1,6 @@
 import { Container, Texture, TilingSprite } from "pixi.js";
 import { MonsterRaidersGame } from "./MonsterRaidersGame";
 import { FullscreenArea, getStageSize, StageSizeEvents } from "../main";
-import starrySpaceImg from "../images/starry-space.png";
-import starsImg from "../images/stars.png";
 
 export class Background extends Container {
 
@@ -13,20 +11,20 @@ export class Background extends Container {
     constructor(public game: MonsterRaidersGame) {
         super();
         // 黑底星空
-        let texture = Texture.from(starrySpaceImg);
-        this.starrySprite = new TilingSprite(
-            texture,
-            getStageSize().width,
-            getStageSize().height
-        );
+        let texture = Texture.from('starrySpaceImg');
+        this.starrySprite = new TilingSprite({
+            texture: texture,
+            width: getStageSize().width,
+            height: getStageSize().height,
+        });
         this.addChild(this.starrySprite);
         this.starrySprite.tileScale.set(0.5);
         // 星光圖
-        this.starsSprite =  new TilingSprite(
-            Texture.from(starsImg),
-            getStageSize().width,
-            getStageSize().height
-        );
+        this.starsSprite =  new TilingSprite({
+            texture: Texture.from('starsImg'),
+            width: getStageSize().width,
+            height: getStageSize().height,
+        });
         this.addChild(this.starsSprite);
         this.starsSprite.tileScale.set(0.8);
         // 將Background加入遊戲容器的底層

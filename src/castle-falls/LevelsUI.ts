@@ -1,6 +1,5 @@
 import { CastleFalls } from "./CastleFalls";
 import { Container, Sprite } from "pixi.js";
-import castleBgImg from "../images/castle-bg.jpg";
 import { PixiButton } from "../lib/PixiButton";
 
 export class LevelsUI extends Container {
@@ -8,7 +7,7 @@ export class LevelsUI extends Container {
     constructor(public gameApp: CastleFalls) {
         super();
         // 加入介面背景圖
-        let bg = Sprite.from(castleBgImg);
+        let bg = Sprite.from('castleBgImg');
         bg.scale.set(0.5);
         this.addChild(bg);
         // 建構選關按鈕

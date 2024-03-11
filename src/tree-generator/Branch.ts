@@ -237,7 +237,7 @@ export class Branch {
         const options = this.options;
         const start = options.position;
         // 樹枝生長方向的向量 = 生長終點 - 起點
-        let vector = this.getEndPosition().sub(start);
+        let vector = this.getEndPosition().subtract(start);
         // 在生長到percent時的終點
         let end = new Point(
             start.x + vector.x * percent,
@@ -246,7 +246,7 @@ export class Branch {
         // 準備畫線，先清除之前畫的東西
         this.graphics.clear();
         // 設定畫線筆刷
-        this.graphics.lineStyle({
+        this.graphics.setStrokeStyle({
             width: options.size,
             color: options.color,
         });
@@ -254,6 +254,7 @@ export class Branch {
         this.graphics.moveTo(start.x, start.y);
         // 畫線到終點
         this.graphics.lineTo(end.x, end.y);
+        this.graphics.stroke();
         // 記錄我們現在畫到哪兒了
         this.drawnPercent = percent;
     }

@@ -1,7 +1,6 @@
 import { MonsterRaidersGame } from "./MonsterRaidersGame";
-import { BaseTexture, Container, Graphics, Rectangle, Sprite, Text, Texture } from "pixi.js";
+import { Assets, Container, Graphics, Rectangle, Sprite, Text, Texture } from "pixi.js";
 import { FullscreenArea, getStageSize, StageSizeEvents } from "../main";
-import musicNotesImg from "../images/music-notes.png";
 
 export class MonsterRaidersUI extends Container {
 
@@ -31,16 +30,18 @@ export class MonsterRaidersUI extends Container {
         await document.fonts.load('10px SpaceInvadersFont');
         // 畫分數文字的背景
         let graphics = new Graphics();
-        graphics.beginFill(0x666666, 0.5);
-        graphics.drawRoundedRect(-50, 0, 100, 28, 14);
-        graphics.endFill();
+        graphics.roundRect(-50, 0, 100, 28, 14);
+        graphics.fill({ color: 0x666666, alpha: 0.5 });
         graphics.position.set(getStageSize().width / 2, 10);
         this.addChild(graphics);
         // 新增分數文字
-        this.scoreText = new Text('', {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 24,
-            fill: 0xFFFFFF,
+        this.scoreText = new Text({
+            text: '',
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 24,
+                fill: 0xFFFFFF,
+            }
         });
         this.scoreText.y = 12;
         this.addChild(this.scoreText);
@@ -49,15 +50,15 @@ export class MonsterRaidersUI extends Container {
     }
     private async createMusicButton() {
         // 準備音樂開與關的兩個圖示材質
-        let baseTexture = BaseTexture.from(musicNotesImg);
-        let musicOnTexture = new Texture(
-            baseTexture,
-            new Rectangle(0, 0, 64, 64)
-        );
-        let musicOffTexture = new Texture(
-            baseTexture,
-            new Rectangle(64, 0, 64, 64)
-        );
+        let baseTexture = Assets.get('musicNotesImg');
+        let musicOnTexture = new Texture({
+            source: baseTexture,
+            frame: new Rectangle(0, 0, 64, 64)
+        });
+        let musicOffTexture = new Texture({
+            source: baseTexture,
+            frame: new Rectangle(64, 0, 64, 64)
+        });
         // 建構按鈕的繪圖器（精靈圖）
         let button = new Sprite();
         button.position.set(getStageSize().width - 36, 12);

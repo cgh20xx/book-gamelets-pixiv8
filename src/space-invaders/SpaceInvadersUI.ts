@@ -1,5 +1,4 @@
-import { BaseTexture, Container, Sprite, Text } from "pixi.js";
-import cannonImage from '../images/cannon.png';
+import { Assets, Container, Sprite, Text } from "pixi.js";
 import { getStageSize, wait } from "../main";
 
 export class SpaceInvadersUI extends Container {
@@ -34,10 +33,13 @@ export class SpaceInvadersUI extends Container {
     /** 方便新增文字繪圖器的函式 */
     private createText(label: string, color: string, x: number, y: number) {
         // 新增Pixi提供的Text物件
-        let text = new Text(label, {
-            fontFamily: '"SpaceInvadersFont"',
-            fontSize: 24,
-            fill: color,
+        let text = new Text({
+            text: label,
+            style: {
+                fontFamily: '"SpaceInvadersFont"',
+                fontSize: 24,
+                fill: color,
+            }
         });
         // 提高文字的解析度
         text.resolution = 2;
@@ -74,7 +76,7 @@ export class SpaceInvadersUI extends Container {
             sprite?.destroy();
         }
         // 準備砲台的材質基底備用
-        let baseTexture = BaseTexture.from(cannonImage);
+        let baseTexture = Assets.get('cannonImg');
         // 補足不夠的砲台生命圖
         while (this.liveSprites.length < this.lives) {
             // 下一個生命圖的index

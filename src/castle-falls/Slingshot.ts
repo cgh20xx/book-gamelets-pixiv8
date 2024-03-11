@@ -3,8 +3,6 @@ import { ICFSlingshot } from "./CastleFallsLevelData";
 import { Sprite } from "pixi.js";
 import { wait } from "../main";
 import { CastleFallsGame } from "./CastleFallsGame";
-import slingshotImg from "../images/slingshot.png";
-import slingshotFrontImg from "../images/slingshot_front.png";
 import shootSnd from "../sounds/missile-launch.mp3";
 import { playSound } from "../lib/SoundUtils";
 
@@ -88,12 +86,12 @@ export class Slingshot {
     }
     private createSprites(data: ICFSlingshot): void {
         // 彈弓主體
-        let backSprite = Sprite.from(slingshotImg);
+        let backSprite = Sprite.from('slingshotImg');
         backSprite.zIndex = 0;
         backSprite.position.set(data.x - 35, data.y - 15);
         this.game.addChild(backSprite);
         // 能遮住石塊的木段
-        let frontSprite = Sprite.from(slingshotFrontImg);
+        let frontSprite = Sprite.from('slingshotFrontImg');
         frontSprite.zIndex = 10;
         frontSprite.position.copyFrom(backSprite.position);
         this.game.addChild(frontSprite);
@@ -118,7 +116,7 @@ export class Slingshot {
         });
     }
     private createMouseConstraint(): MouseConstraint {
-        let canvas = this.game.app.view as HTMLCanvasElement;
+        let canvas = this.game.app.canvas as HTMLCanvasElement;
         // 建立Matter滑鼠，使用Pixi畫板接收滑鼠事件
         let mouse = Mouse.create(canvas);
         // 調整Matter滑鼠的位置 

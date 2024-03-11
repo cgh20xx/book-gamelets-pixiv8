@@ -1,4 +1,4 @@
-import { Application, Point } from "pixi.js";
+import { Application, Point, Ticker } from "pixi.js";
 import { getStageSize } from "../main";
 import { Branch } from "./Branch";
 import { OptionsEditor } from "./OptionsEditor";
@@ -68,12 +68,11 @@ export class TreeGenerator {
     }
     /**
      * 畫圖用的更新函式
-     * @param deltaTime 
      */
-    drawUpdate(deltaTime: number): void {
+    drawUpdate(ticker: Ticker): void {
         const data = this.drawingData;
         if (data) {
-            data.timepassed += deltaTime;
+            data.timepassed += ticker.deltaTime;
             data.mainTrunk.drawDeeply(data.timepassed);
         }
     }

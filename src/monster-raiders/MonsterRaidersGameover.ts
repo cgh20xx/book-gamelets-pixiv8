@@ -24,16 +24,18 @@ export class MonsterRaidersGameover extends Container {
     }
     drawBackground(width: number, height: number) {
         let graphics = new Graphics();
-        graphics.beginFill(0xFFFFFF, 0.5);
-        graphics.drawRoundedRect(0, 0, width, height, 10);
-        graphics.endFill();
+        graphics.roundRect(0, 0, width, height, 10);
+        graphics.fill({ color: 0xFFFFFF, alpha: 0.5 });
         this.addChild(graphics);
     }
     drawGameoverText(y: number) {
-        let gameoverTxt = new Text('GAME OVER', {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 64,
-            fill: 0x990000,
+        let gameoverTxt = new Text({
+            text: 'GAME OVER',
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 64,
+                fill: 0x990000,
+            }
         });
         gameoverTxt.resolution = 2;
         gameoverTxt.position.set(
@@ -44,10 +46,13 @@ export class MonsterRaidersGameover extends Container {
     }
     drawScoreText(y: number) {
         let score = this.game.score.toLocaleString();
-        let scoreTxt = new Text('SCORE ' + score, {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 32,
-            fill: 0x006600,
+        let scoreTxt = new Text({
+            text: 'SCORE ' + score,
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 32,
+                fill: 0x006600,
+            }
         });
         scoreTxt.resolution = 2;
         scoreTxt.position.set(
@@ -61,17 +66,19 @@ export class MonsterRaidersGameover extends Container {
         let button = new Container();
         // 幫按鈕加上圓角方形的背景
         let bg = new Graphics();
-        bg.beginFill(0xFFFFFF);
-        bg.drawRoundedRect(0, 0, 240, 48, 24);
-        bg.endFill();
+        bg.roundRect(0, 0, 240, 48, 24);
+        bg.fill(0xFFFFFF);
         // 預設的按鈕背景底色
         bg.tint = 0x283593;
         button.addChild(bg);
         // 加再上重玩一次的按鈕標籤
-        let label = new Text('Restart', {
-            fontFamily: 'SpaceInvadersFont',
-            fontSize: 36,
-            fill: 0xFFFFFF,
+        let label = new Text({
+            text: 'Restart',
+            style: {
+                fontFamily: 'SpaceInvadersFont',
+                fontSize: 36,
+                fill: 0xFFFFFF,
+            }
         });
         label.resolution = 2;
         label.position.set(
