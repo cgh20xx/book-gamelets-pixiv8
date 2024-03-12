@@ -21,3 +21,11 @@ https://github.com/haskasu/book-gamelets-pixiv8/blob/main/CHANGES.md
 
 * 專案改用v8的內容改動\
 https://github.com/haskasu/book-gamelets-pixiv8/commit/d4f193cc12a2a2c3ef5288c1a520bad3bd33971f
+
+* 書:[《Pixi.js讓新手也能寫出好遊戲》](https://www.tenlong.com.tw/products/9786267273821)
+
+* 書:[《遊戲設計x演算法xTypeScript／出版社對我說：把秘笈通通交出來！》](https://www.tenlong.com.tw/products/9786263335714)
+
+* Youtube:[《小哈片刻》頻道](https://www.youtube.com/haskasu)
+
+* Facebook:[《來自嘎姆的小哈片刻 》](https://www.facebook.com/haska.gamelet)
