@@ -15,7 +15,7 @@
 
 Application的初始化改成非同步，所以我們在main.ts要用非同步的方式啟動Application，再設定其他有用到Application的物件。
 
-外蟈，Application中原本代表繪圖板的view屬性，改了名字變成canvas。
+另外，Application中原本代表繪圖板的view屬性，改了名字變成canvas。
 
 ```typescript
 // v7的啟動
