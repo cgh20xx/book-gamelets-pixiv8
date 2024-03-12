@@ -43,6 +43,7 @@ function redrawStageFrame(): void {
         stageSize.width, // 寬
         stageSize.height // 高
     );
+    stageFrame.stroke();
 }
 /**
  * 用來指定舞台大小的函式

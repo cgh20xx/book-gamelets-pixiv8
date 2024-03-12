@@ -15,8 +15,10 @@ test('兩種IPoint類別的向量長度', () => {
 test('向量正規化', () => {
     let point = new Point(3, 4);
 
-    // expect(point.normalize(100)).toBe(5);
-    expect(point.length()).toBe(100);
+    point.normalize(point);
+    expect(point.length()).toBeCloseTo(1);
+    point.scale(100);
+    expect(point.length()).toBeCloseTo(100);
 })
 // test('向量加減', () => {
 //     let point = new Point(3, 4);

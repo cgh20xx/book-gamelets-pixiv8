@@ -1,4 +1,5 @@
 // import { Rectangle } from "pixi.js";
+import 'pixi.js/math-extras';
 
 // declare module "pixi.js" {
 //     class Rectangle {
