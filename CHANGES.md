@@ -162,7 +162,7 @@ class example {
 
 ## Bounds
 
-用來檢查繪圖物件邊界範圍的Bounds長得和v7的不一樣了。在v7的Bounds實際上就是一個Rectangle，但在v8中Bounds的自己的類別。
+用來檢查繪圖物件邊界範圍的Bounds長得和v7的不一樣了。在v7的Bounds實際上就是一個Rectangle，但在v8中的Bounds有自己的類別。
 ```typescript
 // v7的bounds
 function collides(obj1: DisplayObject, obj2: DisplayObject): boolean {
