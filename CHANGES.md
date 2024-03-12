@@ -201,5 +201,8 @@ v8的normalize()不接受參數，且回傳值為一個新的向量。所以要�
 // 在v8調整向量長度的方法
 let point = new Point(3, 4);
 // 將向量長度拉長到50
-point.scale(50 / point.length());
+let currentLength = point.length();
+if (currentLength) {
+    point.scale(50 / currentLength);
+}
 ```
