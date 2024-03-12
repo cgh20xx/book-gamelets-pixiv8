@@ -13,3 +13,11 @@ npm run dev
 ```
 
 伺服器啟動後，在瀏覽器上打開 http://localhost:5173/ 就可以看到專案成品。
+
+## 快速連結
+
+* v7到v8的改動說明\
+https://github.com/haskasu/book-gamelets-pixiv8/blob/main/CHANGES.md
+
+* 專案改用v8的內容改動\
+https://github.com/haskasu/book-gamelets-pixiv8/commit/d4f193cc12a2a2c3ef5288c1a520bad3bd33971f
