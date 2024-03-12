@@ -78,8 +78,22 @@ let texture = new Texture({
 
 在v7以前，繪圖物件的基底類別是DisplayObject，而Container是個比較高階的類別。
 
-在v8中，繪圖物件的基底類別變成了Container，包括Sprite、Graphics等都繼承了Container。也就是說，在v8中，所有的繪圖物件都能加入子物件(children)，當成容器來用。
+在v8中，繪圖物件的基底類別雖然變成了Container，包括Sprite、Graphics等都繼承了Container，但是只有 Container 可以加入子物件(children)。
 
+```typescript
+// v7 Sprite, Mesh, Graphics, Container 都可以加入子物件
+const sprite = new Sprite();
+const spriteChild = new Sprite();
+sprite.addChild(spriteChild);
+
+// v8 只允許 Container 可以加入子物件
+const container = new Container();
+const sprite = new Sprite();
+const spriteChild = new Sprite();
+
+container.addChild(sprite);
+container.addChild(spriteChild);
+```
 
 ## Graphics的繪圖方法
 
@@ -96,7 +110,7 @@ graphics.lineStyle({
 // 開始填色，並設定顏色
 graphics.beginFill(0x00FF00, 0.5);
 // 畫圖
-grahpics.drawCircle(0, 0, 10);
+graphics.drawCircle(0, 0, 10);
 // 結束填色
 ```
 以下用v8畫出一模一樣的圖形。
